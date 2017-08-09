@@ -56,5 +56,3 @@ a = a*pi/180;
 b = b*pi/180;
 crash = loop(t,x1,y1,a,x2,y2,b);
 end
-
-    
