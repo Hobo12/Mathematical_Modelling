@@ -1,7 +1,7 @@
-function [ crash ] = edgejudge( x1,y1,a,x2,y2,b )
-%UNTITLED2 此处显示有关此函数的摘要
+function [crash] = judge( x1,y1,a,x2,y2,b )
+%UNTITLED3 此处显示有关此函数的摘要
 %   此处显示详细说明
-if a>=0&&a<90
+if a>=0&&a<=90
 d11=abs((160-x1)/(cos(a/180*pi))); 
 d12=abs((160-y1)/(sin(a/180*pi)));
 end
@@ -24,7 +24,7 @@ else
 end
 t1=d1*9/2;
  
-if b>=0&&b<90
+if b>=0&&b<=90
 d21=abs((160-x2)/(cos(b/180*pi))); 
 d22=abs((160-y2)/(sin(b/180*pi)));
 end
@@ -33,12 +33,12 @@ d21=abs(x2/(cos(b/180*pi)));
 d22=abs((160-y2)/(sin(b/180*pi)));
 end
 if b>=180&&b<270
-d21=abs(x2/(cos(b/180*pi))); 
-d22=abs(y2/(sin(b/180*pi)));
+d11=abs(x2/(cos(a/180*pi))); 
+d12=abs(y/(sin(a/180*pi)));
 end
 if b>=270&&b<360
-d21=abs((160-x2)/(cos(b/180*pi))); 
-d22=abs(y2/(sin(b/180*pi)));
+d21=abs((160-x1)/(cos(a/180*pi))); 
+d22=abs(y1/(sin(a/180*pi)));
 end
 if d21>d22
     d2=d22;
@@ -54,14 +54,7 @@ else
 end
 a = a*pi/180;
 b = b*pi/180;
-edgeD1 = distance(t,x1,y1,a,x2,y2,b);
-edgeD2 = distance(0,x1,y1,a,x2,y2,b);
-if edgeD1<=60||edgeD2<=60
-    crash=1;
-else 
-    crash=0;
+crash = loop(t,x1,y1,a,x2,y2,b);
 end
 
-
-end
-
+    
