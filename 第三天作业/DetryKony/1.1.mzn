@@ -1,0 +1,10 @@
+var float : x;
+var float : y;
+var float : z;
+constraint 4*x+3*y<=10;
+constraint 3*x+5*y<=12;
+constraint z=2*x+3*y;
+constraint x>=0;
+constraint y>=0;
+solve maximize z;
+output ["x=\(x),y=\(y)，z=\(z)"];
