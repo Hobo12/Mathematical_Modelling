@@ -31,6 +31,7 @@ nutrition =
  constraint supply[A6]<=4;
  
  constraint forall(j in N)(sum(i in V)(supply[i]*nutrition[i,j])>=requirement[j]);
+ constraint sum(i in V)(supply[i])=14;
  
  constraint total = sum(i in V)(price[i]*supply[i]);
  
