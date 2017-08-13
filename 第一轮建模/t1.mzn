@@ -9,13 +9,14 @@ array[1..7,1..15] of float:fare=
 |255.7,245.3,225.2,206.6,146,130.5,121,111.2,79.2,57,33,51,71.2,73,87
 |240.7,255.3,235.2,235,156,140.5,131,121.2,84.2,62,51,45,26.2,23,28
 |250.7,265.3,245.2,226.6,166,150.5,141,131.2,99.2,77,66,56,38.2,26,22|];
-array[1..15] of var int:amt;
-array[1..28] of var int:w;
+array[1..15] of var int:amt;%每个Ai分配的钢材量
+array[1..28] of var int:w;%A1到A28之间分了的28段
 array[1..14] of int:everydistance=[104,301,750,606,194,205,201,680,480,300,220,210,420,500];
-array[1..7,1..15] of var int:choice;
-array[1..7,1..15] of var int:choiceamt;
-var float:Fare1;
-var float:Fare2;
+array[1..7,1..15] of var int:choice;%Si是否送到Aj
+array[1..7,1..15] of var int:choiceamt;%Si送到Aj的钢材量
+var float:Fare1;%在管道以外运送的总费用
+var float:Fare2;%在管道上运送的总费用
+var float:Fare3;%购买钢材的总费用
 var float:totalcost;
 
 
@@ -27,10 +28,13 @@ constraint forall(i in 1..13)(w[2*i]+w[2*i+1]=amt[i+1]);
 constraint w[28]=amt[15];
 constraint forall(i in 1..7)(forall(j in 1..15)(choice[i,j]>=0));
 constraint forall(i in 1..7)(sum(j in 1..15)(choice[i,j])=1);
+constraint forall(j in 1..15)(sum(i in 1..7)(choice[i,j]*choiceamt[i,j])=amt[j]);
 constraint forall(i in 1..7)(forall(j in 1..15)(choice[i,j]*choiceamt[i,j]>=500));
+constraint forall(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j])<=s[i]);
 constraint Fare1=sum(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j]*fare[i,j]));
 constraint Fare2=sum(i in 1..28)(w[i]*(w[i]+1)/2*0.1);
-constraint totalcost=Fare1+Fare2;
+constraint Fare1=sum(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j]*p[i]));
+constraint totalcost=Fare1+Fare2+Fare3;
 
 solve minimize totalcost;
 
