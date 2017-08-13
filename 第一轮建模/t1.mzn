@@ -33,7 +33,7 @@ constraint forall(i in 1..7)(forall(j in 1..15)(choice[i,j]*choiceamt[i,j]>=500)
 constraint forall(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j])<=s[i]);
 constraint Fare1=sum(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j]*fare[i,j]));
 constraint Fare2=sum(i in 1..28)(w[i]*(w[i]+1)/2*0.1);
-constraint Fare1=sum(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j]*p[i]));
+constraint Fare3=sum(i in 1..7)(sum(j in 1..15)(choice[i,j]*choiceamt[i,j]*p[i]));
 constraint totalcost=Fare1+Fare2+Fare3;
 
 solve minimize totalcost;
