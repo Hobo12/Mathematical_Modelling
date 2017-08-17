@@ -1,8 +1,8 @@
-    clc;  
+    clc,clear;  
     syms a b;  
     c=[a b]';  
-    for j = 1:72
-    A=Gery_prediction_data(j,:);  
+ 
+    A = [6	12.5	8.666666667	10];
     B=cumsum(A);  %原始数据累加  
     n=length(A);  
     for i=1:(n-1)  
@@ -26,6 +26,6 @@
     end  
     t1=2001:2005;  
     t2=2001:2006;  %多1组数据  
-    final(end+1)=G(6);
-    end
+    G(length(A)+1)
+
    
