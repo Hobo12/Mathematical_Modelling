@@ -3,10 +3,10 @@ array[1..5,1..60] of var int:duration;
 array[1..5] of int:period=[5,7,11,13,7];
 
 constraint forall(i in 1..5)(forall(j in 1..30)(start[i,j]>=0));
-constraint forall(j in 1..30 where j mod 7 !=0 /\ j mod 7 !=6)(start[1,j]=0);
+constraint forall(j in 1..30 where j mod 7 !=1 /\ j mod 7 !=6)(start[1,j]=0);
 constraint forall(j in 1..30 where j mod 7 !=6)(start[2,j]=0);
-constraint forall(j in 1..30 where j mod 7 !=0 /\ j mod 7 !=5)(start[3,j]=0);
-constraint forall(j in 1..30 where j mod 7 !=0 /\ j mod 7 !=5)(start[4,j]=0);
+constraint forall(j in 1..30 where j mod 7 =0 \/ j mod 7 =5)(start[3,j]=0);
+constraint forall(j in 1..30 where j mod 7 =0 \/ j mod 7 =5)(start[4,j]=0);
 constraint forall(i in 1..5)(forall(j in 31..60)(start[i,j]=0));
 constraint sum(j in 1..30)(start[1,j])=47;
 constraint sum(j in 1..30)(start[2,j])=62;
